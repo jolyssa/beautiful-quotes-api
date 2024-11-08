@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const cors = require('cors')
-const PORT = 7000
+const PORT = process.env.PORT || 7000
 
 app.use(cors())
 
@@ -69,14 +69,7 @@ const beautifulQuotes = {
         'quote': `The world will always be there-while you sleep it will be there-when you wake it will be there as well. So you can sleep and there is a reason to wake. A dead hydrangea is as intricate and lovely as one in bloom. Bleak sky is as seductive as sunshine, miniature orange trees without blossom or fruit are not defective; they are that. So the windows of the greenhouse can be opened and the weather let in. The latch on the door can be left unhooked, the muslin removed, for the soldier ants are beautiful too and whatever they do will be part of it.`
     },
 
-    //? U
-    'unknown': {
-        'name': 'unkown',
-        'quoteName': 'unknown',
-        'type': 'unknown',
-        'quote': 'unknown',
-    },
-
+    
     //? W
     'william shakespeare': {
         'name': 'William Shakespeare',
@@ -111,6 +104,14 @@ const beautifulQuotes = {
                   Is second childishness and mere oblivion,
                   Sans teeth, sans eyes, sans taste, sans everything.`
     },
+
+    //? U
+    'unknown': {
+        'name': 'unknown',
+        'quoteName': 'unknown',
+        'type': 'unknown',
+        'quote': 'unknown',
+    },
 } //END OF BEAUTIFUL QUOTES OBJECT
 
 
@@ -123,7 +124,6 @@ app.get('/', (req, res) => {
 app.get('/api/:name', (req, res) => {
     const quote = req.params.name.toLowerCase() //our object in the beautifulQuotes obj put to lowercase
 
-    console.log(beautifulQuotes[quote].quote)
 
     if (beautifulQuotes[quote]) {
         res.json(beautifulQuotes[quote])
@@ -132,6 +132,6 @@ app.get('/api/:name', (req, res) => {
     }
 })
 
-app.listen(process.env.PORT || PORT, () => {
+app.listen(PORT, () => {
     console.log(`The server is running on ${PORT}.`)
 })
